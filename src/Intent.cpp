@@ -166,6 +166,13 @@ void CJNIIntent::addCategory(const std::string &category)
     jcast<jhstring>(category));
 }
 
+void CJNIIntent::removeCategory(const std::string &category)
+{
+  call_method<jhstring>(m_object,
+    "removeCategory", "(Ljava/lang/String;)V",
+    jcast<jhstring>(category));
+}
+
 void CJNIIntent::setAction(const std::string &action)
 {
   call_method<jhobject>(m_object,
@@ -217,7 +224,7 @@ void CJNIIntent::setPackage(const std::string &packageName)
 
 void CJNIIntent::setType(const std::string &type)
 {
-  call_method<jhobject>(m_object,
+  call_method<void>(m_object,
     "setType", "(Ljava/lang/String;)Landroid/content/Intent;",
     jcast<jhstring>(type));
 }
