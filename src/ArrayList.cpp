@@ -20,17 +20,8 @@
 
 #include "ArrayList.h"
 
-#include "jutils-details.hpp"
-
 using namespace jni;
 
-template <typename T>
-T CJNIArrayList<T>::get(int index)
-{
-  return (T)call_method<jhobject>(m_object,
-    "get", "(I)Ljava/lang/Object;",
-    index);
-}
 
 template <>
 std::string CJNIArrayList<std::string>::get(int index)
@@ -40,26 +31,9 @@ std::string CJNIArrayList<std::string>::get(int index)
     index));
 }
 
-
-template <typename T>
-int CJNIArrayList<T>::size()
-{
-  return m_object.get() ? call_method<jint>(m_object,
-                                            "size", "()I") : 0;
-}
-
 template<>
 bool CJNIArrayList<std::string>::add(const std::string& el)
 {
   return call_method<jboolean>(m_object,
     "add", "(Ljava/lang/Object;)Z", jcast<jhstring>(el));
 }
-
-template<typename T>
-bool CJNIArrayList<T>::add(const T& el)
-{
-  return call_method<jboolean>(m_object,
-    "add", "(Ljava/lang/Object;)Z", el.get_raw());
-}
-
-template class CJNIArrayList<std::string>;

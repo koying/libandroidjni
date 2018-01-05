@@ -21,19 +21,42 @@
 
 #include "JNIBase.h"
 
+#include "jutils-details.hpp"
+
 template <typename T>
 class CJNIArrayList : public CJNIBase
 {
 public:
-  CJNIArrayList(const jni::jhobject &object) : CJNIBase(object){};
-  ~CJNIArrayList(){};
+  CJNIArrayList()
+    : CJNIBase("java/util/ArrayList")
+  {
+    m_object = jni::new_object(GetClassName(), "<init>", "()V");
+    m_object.setGlobal();
+  }
 
-  T   get(int index);
-  int size();
-  bool add(const T& el);
+  CJNIArrayList(const jni::jhobject &object) : CJNIBase(object) {}
+  ~CJNIArrayList() {}
 
-private:
-  CJNIArrayList();
+  T get(int index)
+  {
+    return (T) jni::call_method<jni::jhobject>(m_object,
+      "get", "(I)Ljava/lang/Object;",
+      index);
+  }
+
+  int size()
+  {
+    return m_object.get() ? jni::call_method<jint>(m_object,
+                                              "size", "()I") : 0;
+  }
+
+  bool add(const T& el)
+  {
+    return jni::call_method<jboolean>(m_object,
+      "add", "(Ljava/lang/Object;)Z", el.get_raw());
+  }
+
 };
 
 template <> std::string CJNIArrayList<std::string>::get(int index);
+template <> bool CJNIArrayList<std::string>::add(const std::string& el);
