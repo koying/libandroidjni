@@ -30,6 +30,7 @@ public:
 
   T   get(int index);
   int size();
+  bool add(const T& el);
 
 private:
   CJNIArrayList();
