@@ -30,16 +30,16 @@ struct ANativeActivity;
 class CJNIActivity : public CJNIContext
 {
 public:
-  CJNIActivity(const ANativeActivity *nativeActivity);
+  CJNIActivity(const jobject& clazz);
   ~CJNIActivity();
 
-  static CJNIWindowManager getWindowManager();
-  static bool moveTaskToBack(bool nonRoot);
-  static void startActivityForResult(const CJNIIntent &intent, int requestCode);
-  static bool requestVisibleBehind(bool visible);
-  static void enterPictureInPictureMode();
-  static bool isInPictureInPictureMode();
-  static bool isInMultiWindowMode();
+  CJNIWindowManager getWindowManager();
+  bool moveTaskToBack(bool nonRoot);
+  void startActivityForResult(const CJNIIntent &intent, int requestCode);
+  bool requestVisibleBehind(bool visible);
+  void enterPictureInPictureMode();
+  bool isInPictureInPictureMode();
+  bool isInMultiWindowMode();
 
   virtual void onVisibleBehindCanceled() = 0;
   virtual void onMultiWindowModeChanged(bool isInMultiWindowMode) = 0;
