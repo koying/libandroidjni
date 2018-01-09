@@ -28,7 +28,7 @@
 
 using namespace jni;
 
-CJNIActivity::CJNIActivity(const ANativeActivity *nativeActivity) : CJNIContext(nativeActivity)
+CJNIActivity::CJNIActivity(const jobject& clazz) : CJNIContext(clazz)
 {
 }
 
@@ -38,27 +38,27 @@ CJNIActivity::~CJNIActivity()
 
 CJNIWindowManager CJNIActivity::getWindowManager()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getWindowManager", "()Landroid/view/WindowManager;");
 }
 
 bool CJNIActivity::moveTaskToBack(bool nonRoot)
 {
-  return call_method<jboolean>(m_context,
+  return call_method<jboolean>(m_object,
     "moveTaskToBack", "(Z)Z",
     nonRoot);
 }
 
 void CJNIActivity::startActivityForResult(const CJNIIntent &intent, int requestCode)
 {
-  call_method<void>(m_context,
+  call_method<void>(m_object,
     "startActivityForResult", "(Landroid/content/Intent;I)V",
                     intent.get_raw(), requestCode);
 }
 
 bool CJNIActivity::requestVisibleBehind(bool visible)
 {
-  return call_method<jboolean>(m_context,
+  return call_method<jboolean>(m_object,
     "requestVisibleBehind", "(Z)Z",
                                visible);
 }
@@ -68,7 +68,7 @@ void CJNIActivity::enterPictureInPictureMode()
   if (CJNIBase::GetSDKVersion() < 24)
     return;
 
-  call_method<void>(m_context,
+  call_method<void>(m_object,
     "enterPictureInPictureMode", "()V");
 }
 
