@@ -33,42 +33,38 @@ class CJNIFile;
 class CJNIPackageManager;
 class CJNIWindow;
 
-class CJNIContext
+class CJNIContext : virtual public CJNIBase
 {
 public:
-  const jni::jhobject& get_raw() const { return m_context; }
-
   static std::string CONNECTIVITY_SERVICE;
   static std::string NSD_SERVICE;
 
-  static CJNIPackageManager GetPackageManager();
-  static void startActivity(const CJNIIntent &intent);
-  static jni::jhobject getSystemService(const std::string &service);
-  static int checkCallingOrSelfPermission(const std::string &permission);
-  static CJNIIntent registerReceiver(const CJNIBroadcastReceiver &receiver, const CJNIIntentFilter &filter);
-  static CJNIIntent registerReceiver(const CJNIIntentFilter &filter);
-  static void unregisterReceiver(const CJNIBroadcastReceiver &receiver);
-  static void sendBroadcast(const CJNIIntent &intent);
-  static CJNIIntent getIntent();
-  static CJNIClassLoader getClassLoader();
-  static jni::CJNIApplicationInfo getApplicationInfo();
-  static std::string getPackageName();
-  static std::string getPackageResourcePath();
-  static CJNIFile getCacheDir();
-  static CJNIFile getDir(const std::string &path, int mode);
-  static CJNIFile getExternalFilesDir(const std::string &path);
-  static CJNIContentResolver getContentResolver();
-  static CJNIWindow getWindow();
+  CJNIPackageManager GetPackageManager();
+  void startActivity(const CJNIIntent &intent);
+  jni::jhobject getSystemService(const std::string &service);
+  int checkCallingOrSelfPermission(const std::string &permission);
+  CJNIIntent registerReceiver(const CJNIBroadcastReceiver &receiver, const CJNIIntentFilter &filter);
+  CJNIIntent registerReceiver(const CJNIIntentFilter &filter);
+  void unregisterReceiver(const CJNIBroadcastReceiver &receiver);
+  void sendBroadcast(const CJNIIntent &intent);
+  CJNIIntent getIntent();
+  CJNIClassLoader getClassLoader();
+  jni::CJNIApplicationInfo getApplicationInfo();
+  std::string getPackageName();
+  std::string getPackageResourcePath();
+  CJNIFile getCacheDir();
+  CJNIFile getDir(const std::string &path, int mode);
+  CJNIFile getExternalFilesDir(const std::string &path);
+  CJNIContentResolver getContentResolver();
+  CJNIWindow getWindow();
 
 protected:
-  CJNIContext(const ANativeActivity *nativeActivity);
+  CJNIContext(const jobject& clazz);
   ~CJNIContext();
-
-  static jni::jhobject m_context;
-
-protected:
-  CJNIContext();
 
   void PopulateStaticFields();
   void operator=(CJNIContext const&){};
+
+private:
+  CJNIContext() : CJNIBase() {}
 };
