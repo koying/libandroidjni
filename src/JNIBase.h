@@ -25,7 +25,7 @@
 
 class CJNIBase
 {
-  friend class CJNIContext; //for SetSDKVersion()
+  friend class CJNIBuild; //for SetSDKVersion()
 
   typedef void (CJNIBase::*safe_bool_type)();
   void non_null_object() {}

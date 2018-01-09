@@ -51,7 +51,6 @@
 #include "IBinder.h"
 #include "Intent.h"
 #include "IntentFilter.h"
-#include "JNIThreading.h"
 #include "KeyEvent.h"
 #include "PackageManager.h"
 #include "PlaybackState.h"
@@ -65,16 +64,13 @@
 
 using namespace jni;
 
-jhobject CJNIContext::m_context(0);
-
 std::string CJNIContext::CONNECTIVITY_SERVICE;
 std::string CJNIContext::NSD_SERVICE;
 
-CJNIContext::CJNIContext(const ANativeActivity *nativeActivity)
+CJNIContext::CJNIContext(const jobject& clazz)
+  : CJNIBase()
 {
-  m_context.reset(nativeActivity->clazz);
-  xbmc_jni_on_load(nativeActivity->vm, nativeActivity->env);
-  CJNIBase::SetSDKVersion(nativeActivity->sdkVersion);
+  m_object.reset(clazz);
   PopulateStaticFields();
 }
 
@@ -125,117 +121,117 @@ void CJNIContext::PopulateStaticFields()
 
 CJNIPackageManager CJNIContext::GetPackageManager()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getPackageManager", "()Landroid/content/pm/PackageManager;");
 }
 
 void CJNIContext::startActivity(const CJNIIntent &intent)
 {
-  call_method<void>(m_context,
+  call_method<void>(m_object,
     "startActivity", "(Landroid/content/Intent;)V",
     intent.get_raw());
 }
 
 int CJNIContext::checkCallingOrSelfPermission(const std::string &permission)
 {
-  return call_method<int>(m_context,
+  return call_method<int>(m_object,
     "checkCallingOrSelfPermission", "(Ljava/lang/String;)I",
     jcast<jhstring>(permission));
 }
 
 jhobject CJNIContext::getSystemService(const std::string &service)
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
     jcast<jhstring>(service));
 }
 
 CJNIIntent CJNIContext::registerReceiver(const CJNIBroadcastReceiver &receiver, const CJNIIntentFilter &filter)
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "registerReceiver", "(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;",
     receiver.get_raw(), filter.get_raw());
 }
 
 CJNIIntent CJNIContext::registerReceiver(const CJNIIntentFilter &filter)
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "registerReceiver", "(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;",
     (jobject)NULL, filter.get_raw());
 }
 
 void CJNIContext::unregisterReceiver(const CJNIBroadcastReceiver &receiver)
 {
-  call_method<void>(m_context,
+  call_method<void>(m_object,
     "unregisterReceiver", "(Landroid/content/BroadcastReceiver;)V",
     receiver.get_raw());
 }
 
 void CJNIContext::sendBroadcast(const CJNIIntent &intent)
 {
-  call_method<void>(m_context,
+  call_method<void>(m_object,
     "sendBroadcast", "(Landroid/content/Intent;)V",
     intent.get_raw());
 }
 
 CJNIIntent CJNIContext::getIntent()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getIntent", "()Landroid/content/Intent;");
 }
 
 CJNIClassLoader CJNIContext::getClassLoader()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getClassLoader", "()Ljava/lang/ClassLoader;");
 }
 
 jni::CJNIApplicationInfo CJNIContext::getApplicationInfo()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getApplicationInfo", "()Landroid/content/pm/ApplicationInfo;");
 }
 
 std::string CJNIContext::getPackageName()
 {
-  return jcast<std::string>(call_method<jhstring>(m_context,
+  return jcast<std::string>(call_method<jhstring>(m_object,
     "getPackageName", "()Ljava/lang/String;"));
 }
 
 std::string CJNIContext::getPackageResourcePath()
 {
-  return jcast<std::string>(call_method<jhstring>(m_context,
+  return jcast<std::string>(call_method<jhstring>(m_object,
     "getPackageResourcePath", "()Ljava/lang/String;"));
 }
 
 CJNIFile CJNIContext::getCacheDir()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getCacheDir", "()Ljava/io/File;");
 }
 
 CJNIFile CJNIContext::getDir(const std::string &path, int mode)
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getDir", "(Ljava/lang/String;I)Ljava/io/File;",
     jcast<jhstring>(path), mode);
 }
 
 CJNIFile CJNIContext::getExternalFilesDir(const std::string &path)
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getExternalFilesDir", "(Ljava/lang/String;)Ljava/io/File;",
     jcast<jhstring>(path));
 }
 
 CJNIContentResolver CJNIContext::getContentResolver()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getContentResolver", "()Landroid/content/ContentResolver;");
 }
 
 CJNIWindow CJNIContext::getWindow()
 {
-  return call_method<jhobject>(m_context,
+  return call_method<jhobject>(m_object,
     "getWindow", "()Landroid/view/Window;");
 }
