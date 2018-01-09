@@ -33,11 +33,11 @@ public:
   CJNIActivity(const ANativeActivity *nativeActivity);
   ~CJNIActivity();
 
-  static CJNIWindowManager getWindowManager();
-  static bool moveTaskToBack(bool nonRoot);
-  static void startActivityForResult(const CJNIIntent &intent, int requestCode);
-  static bool requestVisibleBehind(bool visible);
-  static void enterPictureInPictureMode();
+  CJNIWindowManager getWindowManager();
+  bool moveTaskToBack(bool nonRoot);
+  void startActivityForResult(const CJNIIntent &intent, int requestCode);
+  bool requestVisibleBehind(bool visible);
+  void enterPictureInPictureMode();
 
   virtual void onVisibleBehindCanceled() = 0;
   virtual void onMultiWindowModeChanged(bool isInMultiWindowMode) = 0;
