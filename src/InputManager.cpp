@@ -18,61 +18,11 @@
  *
  */
 
-#include <algorithm>
-
 #include "InputManager.h"
-#include "ClassLoader.h"
-#include "Context.h"
-
 #include "jutils-details.hpp"
 
 using namespace jni;
 
-/************************************************************************/
-/************************************************************************/
-CJNIInputManagerInputDeviceListener* CJNIInputManagerInputDeviceListener::m_listenerInstance = nullptr;
-
-CJNIInputManagerInputDeviceListener::CJNIInputManagerInputDeviceListener()
-  : CJNIBase(CJNIContext::getPackageName() + ".XBMCInputDeviceListener")
-{
-  // Convert "the/class/name" to "the.class.name" as loadClass() expects it.
-  std::string dotClassName = GetClassName();
-  std::replace(dotClassName.begin(), dotClassName.end(), '/', '.');
-  m_object = new_object(CJNIContext::getClassLoader().loadClass(dotClassName));
-  m_object.setGlobal();
-
-  m_listenerInstance = this;
-}
-
-void CJNIInputManagerInputDeviceListener::_onInputDeviceAdded(JNIEnv *env, jobject context, jint deviceId)
-{
-  static_cast<void>(env);
-  static_cast<void>(context);
-
-  if (m_listenerInstance != nullptr)
-    m_listenerInstance->onInputDeviceAdded(deviceId);
-}
-
-void CJNIInputManagerInputDeviceListener::_onInputDeviceChanged(JNIEnv *env, jobject context, jint deviceId)
-{
-  static_cast<void>(env);
-  static_cast<void>(context);
-
-  if (m_listenerInstance != nullptr)
-    m_listenerInstance->onInputDeviceChanged(deviceId);
-}
-
-void CJNIInputManagerInputDeviceListener::_onInputDeviceRemoved(JNIEnv *env, jobject context, jint deviceId)
-{
-  static_cast<void>(env);
-  static_cast<void>(context);
-
-  if (m_listenerInstance != nullptr)
-    m_listenerInstance->onInputDeviceRemoved(deviceId);
-}
-
-/************************************************************************/
-/************************************************************************/
 const CJNIViewInputDevice CJNIInputManager::getInputDevice(int id) const
 {
   return call_method<jhobject>(m_object,

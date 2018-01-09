@@ -24,32 +24,18 @@
 #include "JNIBase.h"
 #include "View.h"
 
-class CJNIInputManagerInputDeviceListener : public CJNIBase
+class CJNIInputManagerInputDeviceListener : virtual public CJNIBase
 {
-public:
-  CJNIInputManagerInputDeviceListener(const jni::jhobject &object) : CJNIBase(object) {};
-  ~CJNIInputManagerInputDeviceListener() {};
-
-  static void _onInputDeviceAdded(JNIEnv *env, jobject context, jint deviceId);
-  static void _onInputDeviceChanged(JNIEnv *env, jobject context, jint deviceId);
-  static void _onInputDeviceRemoved(JNIEnv *env, jobject context, jint deviceId);
-
-protected:
-  CJNIInputManagerInputDeviceListener();
-
   virtual void onInputDeviceAdded(int deviceId) = 0;
   virtual void onInputDeviceChanged(int deviceId) = 0;
   virtual void onInputDeviceRemoved(int deviceId) = 0;
-
-private:
-  static CJNIInputManagerInputDeviceListener *m_listenerInstance;
 };
 
 class CJNIInputManager : public CJNIBase
 {
 public:
-  CJNIInputManager(const jni::jhobject &object) : CJNIBase(object) {};
-  ~CJNIInputManager() {};
+  CJNIInputManager(const jni::jhobject &object) : CJNIBase(object) {}
+  ~CJNIInputManager() {}
 
   const CJNIViewInputDevice getInputDevice(int id) const;
   std::vector<int> getInputDeviceIds() const;
