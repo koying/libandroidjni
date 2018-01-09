@@ -63,7 +63,8 @@ protected:
   ~CJNIContext();
 
 protected:
-  CJNIContext();
+  CJNIContext() : CJNIBase() {}
+  CJNIContext(const jni::jhobject &object) : CJNIBase(object) {}
 
   void PopulateStaticFields();
   void operator=(CJNIContext const&){};
