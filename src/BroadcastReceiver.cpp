@@ -27,18 +27,3 @@
 
 using namespace jni;
 
-CJNIBroadcastReceiver *CJNIBroadcastReceiver::m_receiverInstance(NULL);
-CJNIBroadcastReceiver::CJNIBroadcastReceiver(const std::string &className) : CJNIBase(className)
-{
-  m_object = new_object(GetClassName());
-  m_receiverInstance = this;
-  m_object.setGlobal();
-}
-
-void CJNIBroadcastReceiver::_onReceive(JNIEnv *env, jobject context, jobject intent)
-{
-  (void)env;
-  (void)context;
-  if(m_receiverInstance)
-    m_receiverInstance->onReceive(CJNIIntent(jhobject::fromJNI(intent)));
-}
