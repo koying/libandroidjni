@@ -59,7 +59,7 @@ public:
   CJNIWindow getWindow();
 
 protected:
-  CJNIContext(const ANativeActivity *nativeActivity);
+  CJNIContext(const jobject& clazz);
   ~CJNIContext();
 
 protected:

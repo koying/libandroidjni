@@ -67,6 +67,8 @@ void CJNIBuild::PopulateStaticFields()
   USER = jcast<std::string>(get_static_field<jhstring>(m_classname,"USER"));
   HOST = jcast<std::string>(get_static_field<jhstring>(m_classname,"HOST"));
   SDK_INT = get_static_field<jint>((std::string(m_classname)+"$VERSION").c_str(),"SDK_INT");
+
+  CJNIBase::SetSDKVersion(SDK_INT);
 }
 
 std::string CJNIBuild::getRadioVersion()

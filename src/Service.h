@@ -25,7 +25,7 @@
 class CJNIService : public CJNIContext
 {
 public:
-  CJNIService() : CJNIContext() {}
+  CJNIService(const jobject& clazz) : CJNIContext(clazz) {}
   CJNIService(const jni::jhobject &object) : CJNIContext(object) {}
   virtual ~CJNIService() {}
 };

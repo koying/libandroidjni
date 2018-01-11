@@ -30,7 +30,7 @@ struct ANativeActivity;
 class CJNIActivity : public CJNIContext
 {
 public:
-  CJNIActivity(const ANativeActivity *nativeActivity);
+  CJNIActivity(const jobject& clazz);
   ~CJNIActivity();
 
   CJNIWindowManager getWindowManager();

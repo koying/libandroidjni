@@ -67,11 +67,10 @@ using namespace jni;
 std::string CJNIContext::CONNECTIVITY_SERVICE;
 std::string CJNIContext::NSD_SERVICE;
 
-CJNIContext::CJNIContext(const ANativeActivity *nativeActivity)
+CJNIContext::CJNIContext(const jobject& clazz)
   : CJNIBase()
 {
-  m_object.reset(nativeActivity->clazz);
-  CJNIBase::SetSDKVersion(nativeActivity->sdkVersion);
+  m_object.reset(clazz);
   PopulateStaticFields();
 }
 

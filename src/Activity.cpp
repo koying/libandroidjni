@@ -28,7 +28,7 @@
 
 using namespace jni;
 
-CJNIActivity::CJNIActivity(const ANativeActivity *nativeActivity) : CJNIContext(nativeActivity)
+CJNIActivity::CJNIActivity(const jobject& clazz) : CJNIContext(clazz)
 {
 }
 
