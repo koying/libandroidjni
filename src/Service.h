@@ -28,5 +28,8 @@ public:
   CJNIService(const jobject& clazz) : CJNIContext(clazz) {}
   CJNIService(const jni::jhobject &object) : CJNIContext(object) {}
   virtual ~CJNIService() {}
+
+  void stopSelf();
+  bool stopSelfResult(int startId);
 };
 
