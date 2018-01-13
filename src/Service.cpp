@@ -23,3 +23,15 @@
 
 using namespace jni;
 
+
+void CJNIService::stopSelf()
+{
+  call_method<void>(m_object,
+                    "stopSelf", "()V");
+}
+
+bool CJNIService::stopSelfResult(int startId)
+{
+  return call_method<jboolean>(m_object,
+    "stopSelfResult", "(I)Z", startId);
+}
