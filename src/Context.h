@@ -62,10 +62,9 @@ protected:
   CJNIContext(const jobject& clazz);
   ~CJNIContext();
 
-protected:
-  CJNIContext() : CJNIBase() {}
-  CJNIContext(const jni::jhobject &object) : CJNIBase(object) {}
-
   void PopulateStaticFields();
   void operator=(CJNIContext const&){};
+
+private:
+  CJNIContext() : CJNIBase() {}
 };
