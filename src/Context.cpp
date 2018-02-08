@@ -84,6 +84,8 @@ void CJNIContext::PopulateStaticFields()
   CONNECTIVITY_SERVICE = jcast<std::string>(get_static_field<jhstring>(clazz,"CONNECTIVITY_SERVICE"));
   NSD_SERVICE = jcast<std::string>(get_static_field<jhstring>(clazz,"NSD_SERVICE"));
 
+  CJNIBuild::PopulateStaticFields();  // First for SetSDKVersion
+
   CJNIBaseColumns::PopulateStaticFields();
   CJNIMediaStoreMediaColumns::PopulateStaticFields();
   CJNIMediaStore::PopulateStaticFields();
@@ -102,7 +104,6 @@ void CJNIContext::PopulateStaticFields()
   CJNIMediaCodecInfoCodecCapabilities::PopulateStaticFields();
   CJNIMediaFormat::PopulateStaticFields();
   CJNIView::PopulateStaticFields();
-  CJNIBuild::PopulateStaticFields();
   CJNIDisplayMetrics::PopulateStaticFields();
   CJNIIntent::PopulateStaticFields();
   CJNIKeyEvent::PopulateStaticFields();
