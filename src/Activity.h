@@ -38,6 +38,8 @@ public:
   static void startActivityForResult(const CJNIIntent &intent, int requestCode);
   static bool requestVisibleBehind(bool visible);
   static void enterPictureInPictureMode();
+  static bool isInPictureInPictureMode();
+  static bool isInMultiWindowMode();
 
   virtual void onVisibleBehindCanceled() = 0;
   virtual void onMultiWindowModeChanged(bool isInMultiWindowMode) = 0;

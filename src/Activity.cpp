@@ -72,3 +72,22 @@ void CJNIActivity::enterPictureInPictureMode()
     "enterPictureInPictureMode", "()V");
 }
 
+bool CJNIActivity::isInPictureInPictureMode()
+{
+  if (CJNIBase::GetSDKVersion() < 24)
+    return false;
+
+  return call_method<jboolean>(m_context,
+    "isInPictureInPictureMode", "()Z");
+}
+
+bool CJNIActivity::isInMultiWindowMode()
+{
+  if (CJNIBase::GetSDKVersion() < 24)
+    return false;
+
+  return call_method<jboolean>(m_context,
+    "isInMultiWindowMode", "()Z");
+}
+
+
