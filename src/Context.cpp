@@ -38,6 +38,7 @@
 #include "ConnectivityManager.h"
 #include "ContentResolver.h"
 #include "Cursor.h"
+#include "Display.h"
 #include "DisplayMetrics.h"
 #include "Document.h"
 #include "Environment.h"
@@ -104,6 +105,7 @@ void CJNIContext::PopulateStaticFields()
   CJNIMediaCodecInfoCodecCapabilities::PopulateStaticFields();
   CJNIMediaFormat::PopulateStaticFields();
   CJNIView::PopulateStaticFields();
+  CJNIDisplayHdrCapabilities::PopulateStaticFields();
   CJNIDisplayMetrics::PopulateStaticFields();
   CJNIIntent::PopulateStaticFields();
   CJNIKeyEvent::PopulateStaticFields();
