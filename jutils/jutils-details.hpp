@@ -548,6 +548,28 @@ struct jni_signature
     static const char *signature;
 };
 
+template <> const char *jni_signature<jboolean>::signature = "Z";
+template <> const char *jni_signature<jbyte>::signature = "B";
+template <> const char *jni_signature<jchar>::signature = "C";
+template <> const char *jni_signature<jshort>::signature = "S";
+template <> const char *jni_signature<jint>::signature = "I";
+template <> const char *jni_signature<jlong>::signature = "J";
+template <> const char *jni_signature<jfloat>::signature = "F";
+template <> const char *jni_signature<jdouble>::signature = "D";
+template <> const char *jni_signature<jhobject>::signature = "Ljava/lang/Object;";
+template <> const char *jni_signature<jhclass>::signature = "Ljava/lang/Class;";
+template <> const char *jni_signature<jhstring>::signature = "Ljava/lang/String;";
+template <> const char *jni_signature<jhthrowable>::signature = "Ljava/lang/Throwable;";
+template <> const char *jni_signature<jhbooleanArray>::signature = "[Z";
+template <> const char *jni_signature<jhbyteArray>::signature = "[B";
+template <> const char *jni_signature<jhcharArray>::signature = "[C";
+template <> const char *jni_signature<jhshortArray>::signature = "[S";
+template <> const char *jni_signature<jhintArray>::signature = "[I";
+template <> const char *jni_signature<jhlongArray>::signature = "[J";
+template <> const char *jni_signature<jhfloatArray>::signature = "[F";
+template <> const char *jni_signature<jhdoubleArray>::signature = "[D";
+template <> const char *jni_signature<jhobjectArray>::signature = "[Ljava/lang/Object;";
+
 } // namespace details
 
 // Get field
