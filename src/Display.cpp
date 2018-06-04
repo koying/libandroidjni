@@ -50,6 +50,52 @@ float CJNIDisplayMode::getRefreshRate()
 
 /*************/
 
+const char *CJNIDisplayHdrCapabilities::m_classname = "android/view/Display/HdrCapabilities";
+
+int 	CJNIDisplayHdrCapabilities::HDR_TYPE_DOLBY_VISION(-1);
+int 	CJNIDisplayHdrCapabilities::HDR_TYPE_HDR10(-1);
+int 	CJNIDisplayHdrCapabilities::HDR_TYPE_HLG(-1);
+int 	CJNIDisplayHdrCapabilities::INVALID_LUMINANCE(-1);
+
+void CJNIDisplayHdrCapabilities::PopulateStaticFields()
+{
+  if(CJNIBase::GetSDKVersion() >= 24)
+  {
+    jhclass clazz = find_class(m_classname);
+
+    HDR_TYPE_DOLBY_VISION = get_static_field<jint>(clazz, "HDR_TYPE_DOLBY_VISION");
+    HDR_TYPE_HDR10 = get_static_field<jint>(clazz, "HDR_TYPE_HDR10");
+    HDR_TYPE_HLG = get_static_field<jint>(clazz, "HDR_TYPE_HLG");
+    INVALID_LUMINANCE = get_static_field<jint>(clazz, "INVALID_LUMINANCE");
+  }
+}
+
+float CJNIDisplayHdrCapabilities::getDesiredMaxAverageLuminance()
+{
+  return call_method<jfloat>(m_object,
+    "getDesiredMaxAverageLuminance", "()F");
+}
+
+float CJNIDisplayHdrCapabilities::getDesiredMaxLuminance()
+{
+  return call_method<jfloat>(m_object,
+    "getDesiredMaxLuminance", "()F");
+}
+
+float CJNIDisplayHdrCapabilities::getDesiredMinLuminance()
+{
+  return call_method<jfloat>(m_object,
+    "getDesiredMinLuminance", "()F");
+}
+
+std::vector<int> CJNIDisplayHdrCapabilities::getSupportedHdrTypes()
+{
+  return jcast<std::vector<int>>(call_method<jhintArray>(m_object,
+    "getSupportedHdrTypes", "()[I"));
+}
+
+/*************/
+
 CJNIDisplay::CJNIDisplay()
  : CJNIBase("android.view.Display")
 {
@@ -105,6 +151,18 @@ std::vector<CJNIDisplayMode> CJNIDisplay::getSupportedModes()
   {
     xbmc_jnienv()->ExceptionClear();
     return CJNIDisplayModes();
+  }
+}
+
+CJNIDisplayHdrCapabilities CJNIDisplay::getHdrCapabilities()
+{
+  jmethodID id = get_method_id(m_object, "getMode", "()Landroid/view/Display$HdrCapabilities;");
+  if (id != NULL)
+    return call_method<jhobject>(m_object, id);
+  else
+  {
+    xbmc_jnienv()->ExceptionClear();
+    return jhobject();
   }
 }
 

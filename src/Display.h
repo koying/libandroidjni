@@ -38,6 +38,29 @@ protected:
   CJNIDisplayMode();
 };
 
+class CJNIDisplayHdrCapabilities : public CJNIBase
+{
+public:
+  ~CJNIDisplayHdrCapabilities() {};
+  CJNIDisplayHdrCapabilities(const jni::jhobject &object) : CJNIBase(object) {};
+
+  static int 	HDR_TYPE_DOLBY_VISION;
+  static int 	HDR_TYPE_HDR10;
+  static int 	HDR_TYPE_HLG;
+  static int 	INVALID_LUMINANCE;
+
+  static void PopulateStaticFields();
+
+  float getDesiredMaxAverageLuminance();
+  float getDesiredMaxLuminance();
+  float getDesiredMinLuminance();
+  std::vector<int> getSupportedHdrTypes();
+
+protected:
+  CJNIDisplayHdrCapabilities();
+  static const char *m_classname;
+};
+
 class CJNIDisplay : public CJNIBase
 {
 public:
@@ -51,6 +74,7 @@ public:
   int getWidth();
   int getHeight();
   std::vector<CJNIDisplayMode> getSupportedModes();
+  CJNIDisplayHdrCapabilities getHdrCapabilities();
 };
 
 typedef std::vector<CJNIDisplayMode> CJNIDisplayModes;
