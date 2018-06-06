@@ -547,6 +547,27 @@ struct jni_signature
 {
     static const char *signature;
 };
+template <> struct jni_signature<jboolean> { static const char *signature; };
+template <> struct jni_signature<jbyte> { static const char *signature; };
+template <> struct jni_signature<jchar> { static const char *signature; };
+template <> struct jni_signature<jshort> { static const char *signature; };
+template <> struct jni_signature<jint> { static const char *signature; };
+template <> struct jni_signature<jlong> { static const char *signature; };
+template <> struct jni_signature<jfloat> { static const char *signature; };
+template <> struct jni_signature<jdouble> { static const char *signature; };
+template <> struct jni_signature<jhobject> { static const char *signature; };
+template <> struct jni_signature<jhclass> { static const char *signature; };
+template <> struct jni_signature<jhstring> { static const char *signature; };
+template <> struct jni_signature<jhthrowable> { static const char *signature; };
+template <> struct jni_signature<jhbooleanArray> { static const char *signature; };
+template <> struct jni_signature<jhbyteArray> { static const char *signature; };
+template <> struct jni_signature<jhcharArray> { static const char *signature; };
+template <> struct jni_signature<jhshortArray> { static const char *signature; };
+template <> struct jni_signature<jhintArray> { static const char *signature; };
+template <> struct jni_signature<jhlongArray> { static const char *signature; };
+template <> struct jni_signature<jhfloatArray> { static const char *signature; };
+template <> struct jni_signature<jhdoubleArray> { static const char *signature; };
+template <> struct jni_signature<jhobjectArray> { static const char *signature; };
 
 } // namespace details
 
