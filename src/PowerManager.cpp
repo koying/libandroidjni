@@ -26,12 +26,16 @@ using namespace jni;
 
 int CJNIPowerManager::FULL_WAKE_LOCK(0);
 int CJNIPowerManager::SCREEN_BRIGHT_WAKE_LOCK(0xa);
+int CJNIPowerManager::ACQUIRE_CAUSES_WAKEUP(0x10000000);
+int CJNIPowerManager::ON_AFTER_RELEASE(0x20000000);
 
 void CJNIPowerManager::PopulateStaticFields()
 {
   jhclass clazz  = find_class("android/os/PowerManager");
   FULL_WAKE_LOCK = (get_static_field<int>(clazz, "FULL_WAKE_LOCK"));
   SCREEN_BRIGHT_WAKE_LOCK = (get_static_field<int>(clazz, "SCREEN_BRIGHT_WAKE_LOCK"));
+  ACQUIRE_CAUSES_WAKEUP = (get_static_field<int>(clazz, "ACQUIRE_CAUSES_WAKEUP"));
+  ON_AFTER_RELEASE = (get_static_field<int>(clazz, "ON_AFTER_RELEASE"));
 }
 
 CJNIWakeLock CJNIPowerManager::newWakeLock(int levelAndFlags, const std::string &tag)
