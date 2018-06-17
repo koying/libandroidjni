@@ -50,12 +50,12 @@ float CJNIDisplayMode::getRefreshRate()
 
 /*************/
 
-const char *CJNIDisplayHdrCapabilities::m_classname = "android/view/Display/HdrCapabilities";
+const char *CJNIDisplayHdrCapabilities::m_classname = "android/view/Display$HdrCapabilities";
 
 int 	CJNIDisplayHdrCapabilities::HDR_TYPE_DOLBY_VISION(-1);
 int 	CJNIDisplayHdrCapabilities::HDR_TYPE_HDR10(-1);
 int 	CJNIDisplayHdrCapabilities::HDR_TYPE_HLG(-1);
-int 	CJNIDisplayHdrCapabilities::INVALID_LUMINANCE(-1);
+float 	CJNIDisplayHdrCapabilities::INVALID_LUMINANCE(-1);
 
 void CJNIDisplayHdrCapabilities::PopulateStaticFields()
 {
@@ -66,7 +66,7 @@ void CJNIDisplayHdrCapabilities::PopulateStaticFields()
     HDR_TYPE_DOLBY_VISION = get_static_field<jint>(clazz, "HDR_TYPE_DOLBY_VISION");
     HDR_TYPE_HDR10 = get_static_field<jint>(clazz, "HDR_TYPE_HDR10");
     HDR_TYPE_HLG = get_static_field<jint>(clazz, "HDR_TYPE_HLG");
-    INVALID_LUMINANCE = get_static_field<jint>(clazz, "INVALID_LUMINANCE");
+    INVALID_LUMINANCE = get_static_field<jfloat>(clazz, "INVALID_LUMINANCE");
   }
 }
 

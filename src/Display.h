@@ -47,7 +47,7 @@ public:
   static int 	HDR_TYPE_DOLBY_VISION;
   static int 	HDR_TYPE_HDR10;
   static int 	HDR_TYPE_HLG;
-  static int 	INVALID_LUMINANCE;
+  static float 	INVALID_LUMINANCE;
 
   static void PopulateStaticFields();
 
