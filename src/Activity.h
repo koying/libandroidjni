@@ -40,6 +40,7 @@ public:
   void enterPictureInPictureMode();
   bool isInPictureInPictureMode();
   bool isInMultiWindowMode();
+  void finish();
 
   virtual void onVisibleBehindCanceled() = 0;
   virtual void onMultiWindowModeChanged(bool isInMultiWindowMode) = 0;

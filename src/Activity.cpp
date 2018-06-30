@@ -90,4 +90,11 @@ bool CJNIActivity::isInMultiWindowMode()
     "isInMultiWindowMode", "()Z");
 }
 
+void CJNIActivity::finish()
+{
+  call_method<void>(m_object,
+    "finish", "()V");
+}
+
+
 
