@@ -240,3 +240,9 @@ CJNIArrayList<std::string> CJNIIntent::getStringArrayListExtra(const std::string
   return call_method<jhobject>(m_object,
     "getStringArrayListExtra","(Ljava/lang/String;)Ljava/util/ArrayList;", jcast<jhstring>(key));
 }
+
+std::vector<int> CJNIIntent::getIntArrayExtra(const std::string &key) const
+{
+  return jcast<std::vector<int>>(call_method<jhintArray>(m_object,
+    "getIntArrayExtra","(Ljava/lang/String;)[I", jcast<jhstring>(key)));
+}
