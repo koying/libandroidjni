@@ -37,6 +37,7 @@ int CJNIConnectivityManager::TYPE_WIMAX(0);
 int CJNIConnectivityManager::TYPE_BLUETOOTH(0);
 int CJNIConnectivityManager::TYPE_DUMMY(0);
 int CJNIConnectivityManager::TYPE_ETHERNET(0);
+int CJNIConnectivityManager::TYPE_VPN(0);
 int CJNIConnectivityManager::DEFAULT_NETWORK_PREFERENCE(0);
 
 void CJNIConnectivityManager::PopulateStaticFields()
@@ -52,6 +53,7 @@ void CJNIConnectivityManager::PopulateStaticFields()
   TYPE_BLUETOOTH    = (get_static_field<int>(clazz, "TYPE_BLUETOOTH"));
   TYPE_DUMMY        = (get_static_field<int>(clazz, "TYPE_DUMMY"));
   TYPE_ETHERNET     = (get_static_field<int>(clazz, "TYPE_ETHERNET"));
+  TYPE_VPN          = (get_static_field<int>(clazz, "TYPE_VPN"));
   DEFAULT_NETWORK_PREFERENCE = (get_static_field<int>(clazz, "DEFAULT_NETWORK_PREFERENCE"));
 }
 

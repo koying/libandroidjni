@@ -59,6 +59,7 @@ public:
   static int TYPE_BLUETOOTH;
   static int TYPE_DUMMY;
   static int TYPE_ETHERNET;
+  static int TYPE_VPN;
   static int DEFAULT_NETWORK_PREFERENCE;
 
 
