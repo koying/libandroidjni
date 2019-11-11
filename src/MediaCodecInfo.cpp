@@ -259,6 +259,11 @@ int CJNIMediaCodecInfoCodecCapabilities::COLOR_TI_FormatYUV420PackedSemiPlanar(0
 int CJNIMediaCodecInfoCodecCapabilities::COLOR_QCOM_FormatYUV420SemiPlanar(0);
 /* This one isn't exposed in 4.4 */
 int CJNIMediaCodecInfoCodecCapabilities::OMX_QCOM_COLOR_FormatYVU420SemiPlanarInterlace(0x7FA30C04);
+
+std::string CJNIMediaCodecInfoCodecCapabilities::FEATURE_AdaptivePlayback;
+std::string CJNIMediaCodecInfoCodecCapabilities::FEATURE_SecurePlayback;
+std::string CJNIMediaCodecInfoCodecCapabilities::FEATURE_TunneledPlayback;
+
 const char *CJNIMediaCodecInfoCodecCapabilities::m_classname = "android/media/MediaCodecInfo$CodecCapabilities";
 
 const CJNIMediaCodecInfoCodecCapabilities CJNIMediaCodecInfoCodecCapabilities::createFromProfileLevel(const std::string &mime, int profile, int level)
@@ -318,6 +323,10 @@ void CJNIMediaCodecInfoCodecCapabilities::PopulateStaticFields()
     COLOR_Format24BitABGR6666         = (get_static_field<int>(clazz, "COLOR_Format24BitABGR6666"));
     COLOR_TI_FormatYUV420PackedSemiPlanar = (get_static_field<int>(clazz, "COLOR_TI_FormatYUV420PackedSemiPlanar"));
     COLOR_QCOM_FormatYUV420SemiPlanar = (get_static_field<int>(clazz, "COLOR_QCOM_FormatYUV420SemiPlanar"));
+
+    FEATURE_AdaptivePlayback          = jcast<std::string>(get_static_field<jhstring>(clazz, "FEATURE_AdaptivePlayback"));
+    FEATURE_SecurePlayback            = jcast<std::string>(get_static_field<jhstring>(clazz, "FEATURE_SecurePlayback"));
+    FEATURE_TunneledPlayback          = jcast<std::string>(get_static_field<jhstring>(clazz, "FEATURE_TunneledPlayback"));
   }
 }
 
@@ -346,6 +355,12 @@ std::vector<CJNIMediaCodecInfoCodecProfileLevel> CJNIMediaCodecInfoCodecCapabili
     profileLevels.push_back(CJNIMediaCodecInfoCodecProfileLevel(jhobject(env->GetObjectArrayElement(oprofileLevels.get(), i))));
 
   return profileLevels;
+}
+
+bool CJNIMediaCodecInfoCodecCapabilities::isFeatureSupported(const std::string& name) const
+{
+  return call_method<jboolean>(m_object,
+    "isFeatureSupported", "(Ljava/lang/String;)Z", jcast<jhstring>(name));
 }
 
 /**********************************************************************************/
