@@ -116,6 +116,13 @@ bool CJNIAudioManager::isWiredHeadsetOn()
                                "()Z");
 }
 
+int CJNIAudioManager::generateAudioSessionId()
+{
+  return call_method<int>(m_object,
+                          "generateAudioSessionId",
+                          "()I");
+}
+
 CJNIAudioDeviceInfos CJNIAudioManager::getDevices(int flags)
 {
   return jcast<CJNIAudioDeviceInfos>(call_method<jhobjectArray>(m_object,

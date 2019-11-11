@@ -46,6 +46,8 @@ public:
   bool isBluetoothA2dpOn();
   bool isWiredHeadsetOn();
   
+  int generateAudioSessionId();
+
   CJNIAudioDeviceInfos getDevices(int flags);
 
   static void PopulateStaticFields();
