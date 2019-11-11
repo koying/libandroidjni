@@ -25,14 +25,17 @@
 class CJNIMediaCodecList : public CJNIBase
 {
 public:
+  CJNIMediaCodecList() : CJNIBase() {}
   CJNIMediaCodecList(const jni::jhobject &object) : CJNIBase(object) {};
-  //~CJNIMediaCodecList() {};
+  CJNIMediaCodecList(int type);
+  ~CJNIMediaCodecList() {};
 
-  static int   getCodecCount();
-  static const CJNIMediaCodecInfo getCodecInfoAt(int index);
+  int   getCodecCount();
+  const CJNIMediaCodecInfo getCodecInfoAt(int index);
+
+  static int  REGULAR_CODECS;
+  static int  ALL_CODECS;
 
 private:
-  CJNIMediaCodecList();
-
   static const char *m_classname;
 };

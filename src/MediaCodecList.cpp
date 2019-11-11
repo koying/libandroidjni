@@ -25,7 +25,17 @@
 
 using namespace jni;
 
+int  CJNIMediaCodecList::REGULAR_CODECS = 0;
+int  CJNIMediaCodecList::ALL_CODECS = 1;
+
 const char* CJNIMediaCodecList::m_classname = "android/media/MediaCodecList";
+
+CJNIMediaCodecList::CJNIMediaCodecList(int type)
+  : CJNIBase(CJNIMediaCodecList::m_classname)
+{
+  m_object = new_object(GetClassName(),
+    "<init>", "(I)V", type);
+}
 
 int CJNIMediaCodecList::getCodecCount()
 {
