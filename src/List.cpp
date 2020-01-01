@@ -26,6 +26,7 @@
 #include "ResolveInfo.h"
 #include "RouteInfo.h"
 #include "ScanResult.h"
+#include "SkuDetails.h"
 #include "URIPermission.h"
 #include "View.h"
 #include "WifiConfiguration.h"
@@ -58,3 +59,4 @@ template class CJNIList<CJNIScanResult>;
 template class CJNIList<CJNIURIPermission>;
 template class CJNIList<CJNIViewInputDeviceMotionRange>;
 template class CJNIList<CJNIWifiConfiguration>;
+template class CJNIList<CJNISkuDetails>;
