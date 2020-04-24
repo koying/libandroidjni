@@ -194,11 +194,11 @@ void CJNIIntent::setComponent(const CJNIComponentName& component)
     component.get_raw());
 }
 
-void CJNIIntent::setData(const std::string &uri)
+void CJNIIntent::setData(const CJNIURI &uri)
 {
   call_method<jhobject>(m_object,
     "setData", "(Landroid/net/Uri;)Landroid/content/Intent;",
-    jcast<jhstring>(uri));
+    uri.get_raw());
 }
 
 void CJNIIntent::setDataAndType(const CJNIURI &uri, const std::string &type)
