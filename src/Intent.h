@@ -61,7 +61,7 @@ public:
 
   // Note that these are strings. We auto-convert to uri objects.
   void setDataAndType(const CJNIURI &uri, const std::string &type);
-  void setData(const std::string &uri);
+  void setData(const CJNIURI &uri);
 
   void setPackage(const std::string &packageName);
   void setType(const std::string &type);
